@@ -16,7 +16,7 @@
     "pack:cn": "npm run icons && npm run build:electron && ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ electron-builder --mac",
     "release:local": "bash scripts/release-local.sh",
     "release:upload": "bash scripts/upload-release.sh",
-    "install": "bash scripts/install.sh",
+    "install:app": "bash scripts/install.sh",
     "install:mac": "bash scripts/install-mac.sh",
     "install:release": "bash scripts/install-release.sh",
     "install:brew": "bash scripts/install-brew.sh",
