@@ -32,6 +32,7 @@ mirror_urls() {
   echo "$direct"
   echo "https://ghfast.top/${direct}"
   echo "https://mirror.ghproxy.com/${direct}"
+  echo "https://gh-proxy.com/${direct}"
 }
 
 resolve_version() {
@@ -83,7 +84,7 @@ else
   APP_SRC="$VOLUME/$APP_NAME"
   # DMG 内若有安装助手，优先使用
   HELPER="$VOLUME/安装 SYC-TOOL.command"
-  if [[ -x "$HELPER" ]]; then
+  if [[ -f "$HELPER" ]]; then
     echo "→ 使用 DMG 内安装助手…"
     bash "$HELPER"
     exit 0
