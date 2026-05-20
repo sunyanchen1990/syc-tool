@@ -23,9 +23,16 @@ jobs:
         env:
           npm_config_electron_mirror: ""
       - run: npm run build:electron
-      - run: npx electron-builder --mac --publish never
+      - run: chmod +x "build/安装 SYC-TOOL.command" scripts/codesign-adhoc.sh
+      - run: npx electron-builder --mac --dir
         env:
           npm_config_electron_mirror: ""
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - run: bash scripts/codesign-adhoc.sh release/mac-arm64/SYC-TOOL.app
+      - run: npx electron-builder --mac --prepackaged release/mac-arm64/SYC-TOOL.app --publish never
+        env:
+          npm_config_electron_mirror: ""
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
 
       - name: Compute DMG SHA256 for Homebrew Cask
         id: sha

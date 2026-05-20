@@ -19,6 +19,7 @@
     "install:mac": "bash scripts/install-mac.sh",
     "install:release": "bash scripts/install-release.sh",
     "install:brew": "bash scripts/install-brew.sh",
+    "fix:gatekeeper": "bash scripts/fix-gatekeeper.sh",
     "website:capture": "bash scripts/capture-website-screenshots.sh"
   },
   "build": {
