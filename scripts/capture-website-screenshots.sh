@@ -6,8 +6,8 @@ cd "$ROOT"
 
 WEBSITE_ROOT="${WEBSITE_ROOT:-$ROOT/../syc-tool-website}"
 if [[ ! -d "$WEBSITE_ROOT" ]]; then
-  echo "错误: 未找到官网仓库目录: $WEBSITE_ROOT"
-  echo "请克隆 syc-tool-website 到应用仓库同级，或设置环境变量 WEBSITE_ROOT"
+  echo "错误: 未找到官网目录: $WEBSITE_ROOT"
+  echo "请确保 t5/syc-tool-website 存在，或设置环境变量 WEBSITE_ROOT"
   exit 1
 fi
 

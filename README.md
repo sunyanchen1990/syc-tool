@@ -35,21 +35,33 @@ env -u ELECTRON_RUN_AS_NODE npm run electron:dev
 
 首次运行会打开 Vite 开发服务器和 Electron 窗口。天气功能需要联网。
 
-## 打包为 Mac 应用
+## 安装方式
+
+| 方式 | 命令 |
+|------|------|
+| **DMG** | 在 [Releases](https://github.com/sunyanchen1990/syc-tool/releases/latest) 下载 `SYC-TOOL-*-arm64.dmg`，拖入应用程序 |
+| **Homebrew** | `brew tap sunyanchen1990/syc-tool && brew install --cask syc-tool` |
+| **一键脚本** | `curl -fsSL https://raw.githubusercontent.com/sunyanchen1990/syc-tool/main/scripts/install-release.sh \| bash` |
+| **Git 源码** | `git clone https://github.com/sunyanchen1990/syc-tool.git && cd syc-tool && npm install && npm run install:mac` |
+| **本地开发** | `npm install && npm run electron:dev` |
+
+仓库内脚本：`npm run install:release` · `npm run install:brew` · `npm run install:mac`
+
+官网安装说明：https://sunyanchen1990.github.io/syc-tool-website/#download
+
+## 打包与发布
 
 ```bash
 npm run pack
 ```
 
-打包成功后，产物在项目的 **`release/`** 目录：
+产物在 **`release/`**：`SYC-TOOL-{version}-arm64.dmg` / `.zip` / `mac-arm64/SYC-TOOL.app`。
 
-| 文件 | 用途 |
-|------|------|
-| `release/SYC-TOOL-1.0.0-arm64.dmg` | 双击安装（推荐） |
-| `release/mac-arm64/SYC-TOOL.app` | 可直接运行的应用 |
-| `release/SYC-TOOL-1.0.0-arm64-mac.zip` | 压缩包 |
+推送版本标签后 GitHub Actions 会自动构建并上传到 Releases：
 
-安装后可在 **启动台** 或 **应用程序** 文件夹找到 **SYC-TOOL**（图标为 SYC-TOOL 字样）。
+```bash
+git tag v1.0.1 && git push origin v1.0.1
+```
 
 图标由 `npm run icons` 自动生成（1024×1024、毛玻璃低饱和风格、居中 SYC）。修改样式请编辑 `scripts/generate-icon.mjs` 后执行 `npm run install:mac`。
 
