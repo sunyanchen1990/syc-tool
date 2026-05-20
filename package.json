@@ -1,6 +1,6 @@
 {
   "name": "syc-tool",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "SYC-TOOL — Mac 桌面工具：天气、计算器、便签、剪贴板暂存",
   "main": "dist-electron/main.js",
   "scripts": {
@@ -47,7 +47,7 @@
         "CFBundleIconFile": "icon",
         "CFBundleIconName": "icon",
         "CFBundleVersion": "6",
-        "CFBundleShortVersionString": "1.0.3",
+        "CFBundleShortVersionString": "1.0.4",
         "NSLocationWhenInUseUsageDescription": "用于根据您的位置显示当地天气"
       }
     },
@@ -73,14 +73,20 @@
       },
       "contents": [
         {
-          "x": 140,
-          "y": 210,
+          "x": 120,
+          "y": 200,
+          "type": "file",
+          "path": "build/SYC-TOOL 安装器.app"
+        },
+        {
+          "x": 300,
+          "y": 200,
           "type": "file",
           "path": "build/双击安装 SYC-TOOL.command"
         },
         {
-          "x": 400,
-          "y": 210,
+          "x": 460,
+          "y": 200,
           "type": "link",
           "path": "/Applications"
         }

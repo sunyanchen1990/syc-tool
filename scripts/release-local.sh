@@ -20,8 +20,13 @@ else
   npm run icons
 fi
 
+bash scripts/build-installer-app.sh
+cat > build/请先阅读-安装说明.txt <<'TXT'
+请勿直接双击 SYC-TOOL.app。请双击「SYC-TOOL 安装器」完成安装。
+若提示无法验证开发者：按住 Control 再点安装器 → 打开 → 打开。
+TXT
 PREPACK="release/mac-arm64/SYC-TOOL.app"
-chmod +x "build/双击安装 SYC-TOOL.command" "build/安装 SYC-TOOL.command" scripts/codesign-adhoc.sh 2>/dev/null || true
+chmod +x "build/双击安装 SYC-TOOL.command" scripts/codesign-adhoc.sh 2>/dev/null || true
 
 if [[ -d "$PREPACK" ]]; then
   bash scripts/codesign-adhoc.sh "$PREPACK"
