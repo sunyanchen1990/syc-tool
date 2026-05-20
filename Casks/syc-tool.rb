@@ -1,6 +1,6 @@
 cask "syc-tool" do
   version "1.0.1"
-  sha256 "b27570f2df2dfe3c246cc345ff96ee4e57bd9c8ef649f33e87b4e5542ef3dc7f"
+  sha256 "b01be3c7fc043722fb5b647b8b96e4e07579826dfa4bc884f70731f4c99e2a15"
 
   name "SYC-TOOL"
   desc "macOS 效率工具箱：天气、终端、便签、剪贴板、悬浮球等"
@@ -13,6 +13,13 @@ cask "syc-tool" do
   depends_on arch: :arm64
 
   app "SYC-TOOL.app"
+
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-cr", "#{appdir}/SYC-TOOL.app"],
+                   print_command: false,
+                   must_succeed: false
+  end
 
   zap trash: [
     "~/Library/Application Support/desk-mini",
