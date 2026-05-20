@@ -21,13 +21,17 @@ else
 fi
 
 PREPACK="release/mac-arm64/SYC-TOOL.app"
+chmod +x "build/安装 SYC-TOOL.command" scripts/codesign-adhoc.sh 2>/dev/null || true
+
 if [[ -d "$PREPACK" ]]; then
+  bash scripts/codesign-adhoc.sh "$PREPACK"
   echo "→ 已有 ${PREPACK}，仅生成 DMG/ZIP（跳过编译）…"
   npx electron-builder --mac --arm64 --publish never --prepackaged "$PREPACK"
 else
   echo "→ 编译并打包 macOS（arm64）…"
   npm run build:electron
   npx electron-builder --mac --arm64 --publish never
+  [[ -d "$PREPACK" ]] && bash scripts/codesign-adhoc.sh "$PREPACK"
 fi
 
 DMG=(release/SYC-TOOL-"${VERSION}"-arm64.dmg)

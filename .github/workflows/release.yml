@@ -1,3 +1,4 @@
+# 可选：打 tag 时由 CI 构建。日常发布更快：npm run release:local（复用 release/mac-arm64/*.app，约十几秒出 DMG）
 name: Release macOS
 
 on:

@@ -7,7 +7,8 @@ cd "$ROOT"
 npm run pack
 
 APP_SRC="$ROOT/release/mac-arm64/SYC-TOOL.app"
-APP_DST="/Applications/SYC-TOOL.app"
+APP_DST="${SYC_TOOL_APP_DIR:-$HOME/Applications}/SYC-TOOL.app"
+mkdir -p "$(dirname "$APP_DST")"
 
 if [ ! -d "$APP_SRC" ]; then
   echo "未找到 $APP_SRC"
