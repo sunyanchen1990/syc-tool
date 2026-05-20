@@ -1,0 +1,84 @@
+.wallpaper-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 100%;
+}
+
+.wallpaper-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.wallpaper-toast {
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(52, 211, 153, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  color: #166534;
+  font-size: 13px;
+  font-weight: 600;
+  animation: panelIn 0.3s ease;
+}
+
+.wallpaper-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  padding-bottom: 16px;
+}
+
+.wallpaper-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px !important;
+}
+
+.wp-thumb-wrap {
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.wp-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wp-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.wp-name {
+  font-size: 12px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wp-set {
+  width: 100%;
+  text-align: center;
+}

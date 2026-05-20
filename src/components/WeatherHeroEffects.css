@@ -1,0 +1,578 @@
+.weather-fx {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.weather-fx::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    ellipse 60% 50% at 70% 30%,
+    rgba(255, 255, 255, 0.12),
+    transparent 65%
+  );
+  animation: fxShimmer 6s ease-in-out infinite;
+}
+
+@keyframes fxShimmer {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* —— 太阳 —— */
+.fx-sun-glow {
+  position: absolute;
+  border-radius: 50%;
+  animation: sunGlowPulse 4s ease-in-out infinite;
+}
+
+.fx-sun-glow--full {
+  top: -20%;
+  right: -10%;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(circle, rgba(255, 220, 100, 0.6) 0%, transparent 70%);
+}
+
+.fx-sun-glow--soft {
+  top: -10%;
+  right: 5%;
+  width: 42%;
+  height: 42%;
+  background: radial-gradient(circle, rgba(255, 220, 120, 0.45) 0%, transparent 72%);
+  animation-duration: 5s;
+}
+
+.fx-sun-glow--peek {
+  top: 5%;
+  right: 18%;
+  width: 28%;
+  height: 28%;
+  background: radial-gradient(circle, rgba(255, 210, 90, 0.35) 0%, transparent 70%);
+  animation-duration: 6s;
+}
+
+.fx-sun-rays {
+  position: absolute;
+  animation: sunRaysSpin 24s linear infinite;
+}
+
+.fx-sun-rays--full {
+  top: 8%;
+  right: 12%;
+  width: 140px;
+  height: 140px;
+}
+
+.fx-sun-rays--soft {
+  top: 12%;
+  right: 16%;
+  width: 100px;
+  height: 100px;
+  opacity: 0.85;
+}
+
+.fx-sun-rays--peek {
+  top: 16%;
+  right: 22%;
+  width: 72px;
+  height: 72px;
+  opacity: 0.65;
+}
+
+.fx-sun-ray {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 52px;
+  margin-left: -1.5px;
+  margin-top: -26px;
+  transform-origin: center center;
+  background: linear-gradient(to bottom, rgba(255, 240, 150, 0.9), transparent);
+  border-radius: 2px;
+  opacity: 0.75;
+}
+
+.fx-sun-rays--soft .fx-sun-ray {
+  height: 40px;
+  margin-top: -20px;
+}
+
+.fx-sun-rays--peek .fx-sun-ray {
+  height: 28px;
+  margin-top: -14px;
+  width: 2px;
+}
+
+@keyframes sunGlowPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+@keyframes sunRaysSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* —— 云 —— */
+.fx-clouds {
+  position: absolute;
+  inset: 0;
+}
+
+.fx-cloud {
+  position: absolute;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.35);
+  filter: blur(1px);
+  box-shadow:
+    24px 8px 0 -4px rgba(255, 255, 255, 0.28),
+    -20px 12px 0 -6px rgba(255, 255, 255, 0.22);
+}
+
+.fx-clouds--light .fx-cloud-1 {
+  width: 80px;
+  height: 28px;
+  top: 22%;
+  left: -100px;
+  animation: cloudDrift 26s linear infinite;
+}
+
+.fx-clouds--normal .fx-cloud-1,
+.fx-clouds--heavy .fx-cloud-1 {
+  width: 90px;
+  height: 32px;
+  top: 18%;
+  left: -120px;
+  animation: cloudDrift 22s linear infinite;
+}
+
+.fx-clouds--normal .fx-cloud-2,
+.fx-clouds--heavy .fx-cloud-2 {
+  width: 120px;
+  height: 40px;
+  top: 42%;
+  left: -160px;
+  animation: cloudDrift 28s linear infinite 4s;
+  opacity: 0.85;
+}
+
+.fx-clouds--normal .fx-cloud-3,
+.fx-clouds--heavy .fx-cloud-3 {
+  width: 70px;
+  height: 26px;
+  top: 62%;
+  left: -100px;
+  animation: cloudDrift 18s linear infinite 8s;
+  opacity: 0.7;
+}
+
+.fx-clouds--heavy .fx-cloud-4 {
+  width: 140px;
+  height: 44px;
+  top: 30%;
+  left: -180px;
+  animation: cloudDrift 20s linear infinite 2s;
+  opacity: 0.9;
+}
+
+.fx-clouds--heavy .fx-cloud {
+  background: rgba(220, 228, 240, 0.45);
+}
+
+@keyframes cloudDrift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(100vw + 220px));
+  }
+}
+
+/* —— 毛毛雨（细点、慢） —— */
+.fx-drizzle-particle {
+  position: absolute;
+  top: -5%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(190, 220, 255, 0.75);
+  box-shadow: 0 0 4px rgba(190, 220, 255, 0.5);
+  animation: drizzleFall ease-in infinite;
+}
+
+.fx-drizzle-particle.light {
+  width: 2px;
+  height: 2px;
+  opacity: 0.55;
+}
+
+.fx-drizzle-particle.heavy {
+  width: 4px;
+  height: 4px;
+  box-shadow: 0 0 6px rgba(170, 210, 255, 0.65);
+}
+
+@keyframes drizzleFall {
+  from {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(300px) translateX(6px);
+    opacity: 0.15;
+  }
+}
+
+/* —— 雨（线状、分强度） —— */
+.fx-rain-drop {
+  position: absolute;
+  top: -12%;
+  width: 2px;
+  height: 16px;
+  background: linear-gradient(to bottom, transparent, rgba(174, 214, 255, 0.8));
+  border-radius: 0 0 2px 2px;
+  animation: rainDropFall linear infinite;
+}
+
+.fx-rain-drop.light {
+  width: 1.5px;
+  height: 12px;
+  opacity: 0.55;
+  animation-name: rainDropFallLight;
+}
+
+.fx-rain-drop.heavy {
+  width: 2.5px;
+  height: 26px;
+  background: linear-gradient(to bottom, transparent, rgba(140, 190, 255, 0.95));
+}
+
+.fx-rain-drop.storm {
+  width: 3px;
+  height: 30px;
+  background: linear-gradient(to bottom, transparent, rgba(120, 170, 255, 1));
+  animation-name: rainDropFallStorm;
+}
+
+@keyframes rainDropFall {
+  from {
+    transform: translateY(-10px) translateX(0);
+  }
+  to {
+    transform: translateY(320px) translateX(-8px);
+  }
+}
+
+@keyframes rainDropFallLight {
+  from {
+    transform: translateY(-8px) translateX(0);
+  }
+  to {
+    transform: translateY(300px) translateX(-4px);
+  }
+}
+
+@keyframes rainDropFallStorm {
+  from {
+    transform: translateY(-10px) translateX(0);
+  }
+  to {
+    transform: translateY(320px) translateX(-14px);
+  }
+}
+
+/* —— 阵雨（雨量脉动） —— */
+.fx-showers {
+  position: absolute;
+  inset: 0;
+}
+
+.fx-showers--slow {
+  animation: showerPulse 3.2s ease-in-out infinite;
+}
+
+.fx-showers--normal {
+  animation: showerPulse 2.2s ease-in-out infinite;
+}
+
+.fx-showers--fast {
+  animation: showerPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes showerPulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  45% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.5;
+  }
+}
+
+/* —— 雷 —— */
+.fx-lightning {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0);
+}
+
+.fx-lightning--normal {
+  animation: lightningFlash 5s ease-in-out infinite;
+}
+
+.fx-lightning--frequent {
+  animation: lightningFlash 3.2s ease-in-out infinite;
+}
+
+.fx-lightning--severe {
+  animation: lightningFlash 2s ease-in-out infinite;
+}
+
+@keyframes lightningFlash {
+  0%,
+  86%,
+  100% {
+    background: rgba(255, 255, 255, 0);
+  }
+  88% {
+    background: rgba(255, 255, 255, 0.4);
+  }
+  90% {
+    background: rgba(255, 255, 255, 0.06);
+  }
+  92% {
+    background: rgba(180, 210, 255, 0.3);
+  }
+}
+
+/* —— 冰雹 —— */
+.fx-hailstone {
+  position: absolute;
+  top: -10%;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  background: linear-gradient(145deg, #f0f4ff, #b8c8e8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  animation: hailFall linear infinite;
+}
+
+.fx-hailstone--severe {
+  width: 12px;
+  height: 12px;
+  animation-name: hailFallSevere;
+}
+
+@keyframes hailFall {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  85% {
+    transform: translateY(280px) rotate(120deg);
+  }
+  92% {
+    transform: translateY(290px) rotate(140deg) scaleY(0.7);
+  }
+  100% {
+    transform: translateY(300px) rotate(160deg);
+    opacity: 0;
+  }
+}
+
+@keyframes hailFallSevere {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(270px) rotate(200deg);
+  }
+  88% {
+    transform: translateY(285px) rotate(220deg) scaleY(0.65);
+  }
+  100% {
+    transform: translateY(310px) rotate(240deg);
+    opacity: 0;
+  }
+}
+
+/* —— 雪 —— */
+.fx-snowflake {
+  position: absolute;
+  top: -8%;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  animation: snowFall ease-in-out infinite;
+  user-select: none;
+}
+
+.fx-snowflake--light {
+  opacity: 0.75;
+  animation-name: snowFallLight;
+}
+
+.fx-snowflake--heavy {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1);
+  animation-name: snowFallHeavy;
+}
+
+@keyframes snowFall {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(280px) translateX(24px) rotate(360deg);
+    opacity: 0.2;
+  }
+}
+
+@keyframes snowFallLight {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(300px) translateX(12px) rotate(180deg);
+    opacity: 0.35;
+  }
+}
+
+@keyframes snowFallHeavy {
+  0% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(290px) translateX(32px) rotate(540deg);
+    opacity: 0.15;
+  }
+}
+
+/* —— 雾 / 雾凇 —— */
+.fx-fog {
+  position: absolute;
+  inset: 0;
+}
+
+.fx-fog-layer {
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  height: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.25) 30%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.25) 70%,
+    transparent
+  );
+  filter: blur(12px);
+}
+
+.fx-fog--rime .fx-fog-layer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(230, 245, 255, 0.35) 30%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(230, 245, 255, 0.35) 70%,
+    transparent
+  );
+}
+
+.fx-fog-1 {
+  top: 15%;
+  animation: fogSlide 14s ease-in-out infinite;
+}
+
+.fx-fog-2 {
+  top: 45%;
+  animation: fogSlide 18s ease-in-out infinite reverse 2s;
+  opacity: 0.8;
+}
+
+.fx-fog-3 {
+  top: 68%;
+  animation: fogSlide 12s ease-in-out infinite 4s;
+  opacity: 0.65;
+}
+
+.fx-rime-sparkle {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 25%, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 45% 55%, rgba(220, 240, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 75% 35%, rgba(255, 255, 255, 0.75), transparent);
+  animation: rimeTwinkle 4s ease-in-out infinite;
+}
+
+@keyframes fogSlide {
+  0%,
+  100% {
+    transform: translateX(-8%);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(8%);
+    opacity: 0.9;
+  }
+}
+
+@keyframes rimeTwinkle {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}

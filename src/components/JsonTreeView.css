@@ -1,0 +1,119 @@
+.json-tree-view {
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.65;
+  padding: 4px 0;
+}
+
+.json-tree-view--primitive {
+  padding: 8px 12px;
+}
+
+.json-tree-node {
+  --indent: 18px;
+}
+
+.json-tree-children {
+  padding-left: var(--indent);
+}
+
+.json-tree-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 4px;
+  min-height: 26px;
+  padding: 1px 8px 1px 4px;
+  border-radius: 4px;
+}
+
+.json-tree-row:hover {
+  background: rgba(245, 184, 0, 0.08);
+}
+
+.json-tree-toggle {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin-right: 2px;
+  padding: 0;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  color: #4a5568;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.json-tree-toggle:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: var(--accent);
+  color: #4a3800;
+}
+
+.json-tree-toggle--leaf {
+  display: inline-block;
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.json-tree-key {
+  color: #7c5c2e;
+  font-weight: 500;
+}
+
+.json-tree-key::before {
+  content: '"';
+  color: #a08050;
+}
+
+.json-tree-key::after {
+  content: '"';
+  color: #a08050;
+}
+
+.json-tree-key--index::before,
+.json-tree-key--index::after {
+  content: none;
+}
+
+.json-tree-key--index {
+  color: #6b5b95;
+}
+
+.json-tree-colon {
+  color: var(--text-muted);
+}
+
+.json-tree-bracket,
+.json-tree-preview {
+  color: #6b7280;
+}
+
+.json-tree-preview {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+.json-tree-value--string {
+  color: #15803d;
+}
+
+.json-tree-value--number {
+  color: #1d4ed8;
+}
+
+.json-tree-value--boolean {
+  color: #b45309;
+}
+
+.json-tree-value--null {
+  color: #9ca3af;
+}
+
+.json-tree-close .json-tree-bracket {
+  margin-left: 0;
+}

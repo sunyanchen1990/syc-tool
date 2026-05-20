@@ -1,0 +1,20 @@
+---
+description: 每次改完 SYC-TOOL 后自动打包安装到 /Applications，方便用户验收
+alwaysApply: true
+---
+
+# 改完即安装验收
+
+用户要求：**每次有改动后都直接更新已安装应用**，无需再单独提醒，方便打开 `/Applications/SYC-TOOL.app` 验收。
+
+完成本仓库（SYC-TOOL / t5）中**任何会影响应用行为的代码或资源修改**后，在结束任务前**必须**执行（不要只问用户要不要装）：
+
+```bash
+cd /Users/sunyanchen/zone_code_/t5 && npm run install:mac
+```
+
+- 使用 `install:mac`（`pack` + 安装到 `/Applications/SYC-TOOL.app` + 刷新图标缓存），不要仅用 `electron:dev` 代替。
+- Shell 需 **all** 权限（写入 `/Applications`、可能 `killall Dock`）。
+- 回复末尾简短说明：**已更新安装，可直接打开 SYC-TOOL 验收**。
+- 可跳过：仅改文档且与运行无关；或用户明确说「这次不用安装」。
+- 打包失败：先排查修复并重跑，不要无声结束。
