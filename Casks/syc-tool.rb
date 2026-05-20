@@ -1,6 +1,6 @@
 cask "syc-tool" do
   version "1.0.1"
-  sha256 "0000000000000000000000000000000000000000000000000000000000000000"
+  sha256 "b27570f2df2dfe3c246cc345ff96ee4e57bd9c8ef649f33e87b4e5542ef3dc7f"
 
   name "SYC-TOOL"
   desc "macOS 效率工具箱：天气、终端、便签、剪贴板、悬浮球等"
