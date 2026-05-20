@@ -21,7 +21,8 @@ jobs:
       - run: npm ci
         env:
           npm_config_electron_mirror: ""
-      - run: npm run pack
+      - run: npm run build:electron
+      - run: npx electron-builder --mac --publish never
         env:
           npm_config_electron_mirror: ""
 
