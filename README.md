@@ -37,17 +37,14 @@ env -u ELECTRON_RUN_AS_NODE npm run electron:dev
 
 ## 安装方式
 
-| 方式 | 命令 |
+| 方式 | 说明 |
 |------|------|
 | **DMG** | 在 [Releases](https://github.com/sunyanchen1990/syc-tool/releases/latest) 下载 `SYC-TOOL-*-arm64.dmg`，拖入应用程序 |
 | **Homebrew** | `brew tap sunyanchen1990/syc-tool && brew install --cask syc-tool` |
-| **一键脚本** | `curl -fsSL https://raw.githubusercontent.com/sunyanchen1990/syc-tool/main/scripts/install-release.sh \| bash` |
-| **Git 源码** | `git clone https://github.com/sunyanchen1990/syc-tool.git && cd syc-tool && npm install && npm run install:mac` |
-| **本地开发** | `npm install && npm run electron:dev` |
 
-仓库内脚本：`npm run install:release` · `npm run install:brew` · `npm run install:mac`
+官网：https://sunyanchen1990.github.io/syc-tool-website/#download
 
-官网安装说明：https://sunyanchen1990.github.io/syc-tool-website/#download
+开发者：`npm install && npm run electron:dev` · `npm run install:mac`（本地打包安装）
 
 ## 打包与发布
 
