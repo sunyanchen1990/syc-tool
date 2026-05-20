@@ -10,6 +10,12 @@ permissions:
 jobs:
   build-mac:
     runs-on: macos-latest
+    env:
+      CSC_LINK: ${{ secrets.MAC_CERT_P12_BASE64 }}
+      CSC_KEY_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
+      APPLE_ID: ${{ secrets.APPLE_ID }}
+      APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+      APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
     steps:
       - uses: actions/checkout@v4
 
@@ -19,11 +25,14 @@ jobs:
           cache: npm
 
       - name: Import signing certificate
-        if: ${{ secrets.MAC_CERT_P12_BASE64 != '' }}
         env:
           MAC_CERT_P12_BASE64: ${{ secrets.MAC_CERT_P12_BASE64 }}
           MAC_CERT_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
         run: |
+          if [[ -z "${MAC_CERT_P12_BASE64:-}" ]]; then
+            echo "未配置 MAC_CERT_P12_BASE64，将使用 ad-hoc 签名（用户需双击安装助手）"
+            exit 0
+          fi
           CERT_PATH="$RUNNER_TEMP/cert.p12"
           echo "$MAC_CERT_P12_BASE64" | base64 --decode > "$CERT_PATH"
           KEYCHAIN="$RUNNER_TEMP/app-signing.keychain-db"
@@ -39,21 +48,14 @@ jobs:
       - run: npm run build:electron
       - run: chmod +x "build/双击安装 SYC-TOOL.command" "build/安装 SYC-TOOL.command" scripts/*.sh
 
-      - name: Build signed app (or ad-hoc if no cert)
-        env:
-          CSC_LINK: ${{ secrets.MAC_CERT_P12_BASE64 }}
-          CSC_KEY_PASSWORD: ${{ secrets.MAC_CERT_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          CSC_IDENTITY_AUTO_DISCOVERY: ${{ secrets.MAC_CERT_P12_BASE64 != '' && 'true' || 'false' }}
+      - name: Build and package
         run: |
-          if [[ -z "${CSC_LINK:-}" ]]; then
+          if [[ -n "${CSC_LINK:-}" ]]; then
+            npx electron-builder --mac --publish never -c.mac.notarize=true
+          else
             npx electron-builder --mac --dir
             bash scripts/codesign-adhoc.sh release/mac-arm64/SYC-TOOL.app
             CSC_IDENTITY_AUTO_DISCOVERY=false npx electron-builder --mac --prepackaged release/mac-arm64/SYC-TOOL.app --publish never
-          else
-            npx electron-builder --mac --publish never -c.mac.notarize=true
           fi
 
       - run: bash scripts/prepare-release-assets.sh
