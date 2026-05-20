@@ -1,16 +1,17 @@
 #!/bin/bash
 set -e
-DIR="$(cd "$(dirname "$0")" && pwd)"
+# 安装器.app 与 SYC-TOOL.app 在同一文件夹（ZIP 解压后或 DMG 内）
+BUNDLE="$(cd "$(dirname "$0")/../.." && pwd)"
+PARENT="$(cd "$BUNDLE/.." && pwd)"
 
-# 解除整个文件夹的下载隔离（否则本脚本和 App 都会被拦）
-xattr -dr com.apple.quarantine "$DIR" 2>/dev/null || true
-xattr -cr "$DIR" 2>/dev/null || true
+xattr -dr com.apple.quarantine "$PARENT" 2>/dev/null || true
+xattr -cr "$PARENT" 2>/dev/null || true
 
-APP_SRC="$DIR/SYC-TOOL.app"
+APP_SRC="$PARENT/SYC-TOOL.app"
 APP_DST="$HOME/Applications/SYC-TOOL.app"
 
 if [[ ! -d "$APP_SRC" ]]; then
-  osascript -e 'display alert "未找到 SYC-TOOL.app" message "请确认已解压完整，且不要单独移动 .app 文件。" as critical'
+  osascript -e 'display alert "未找到 SYC-TOOL.app" message "请把本安装器与 SYC-TOOL.app 放在同一文件夹内。" as critical'
   exit 1
 fi
 
