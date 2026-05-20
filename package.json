@@ -12,7 +12,7 @@
     "start": "npm run build:electron && env -u ELECTRON_RUN_AS_NODE ./node_modules/.bin/electron .",
     "build:electron": "tsc -p tsconfig.electron.json && vite build",
     "icons": "bash scripts/fetch-msyh.sh; node scripts/generate-icon.mjs && bash scripts/make-icon.sh",
-    "pack": "npm run icons && npm run build:electron && electron-builder --mac",
+    "pack": "(test -f build/icon.icns && test -f build/icon.png || npm run icons) && npm run build:electron && electron-builder --mac",
     "pack:cn": "npm run icons && npm run build:electron && ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/ electron-builder --mac",
     "install:mac": "bash scripts/install-mac.sh",
     "install:release": "bash scripts/install-release.sh",
@@ -51,7 +51,9 @@
       {
         "from": "src/assets/wallpapers",
         "to": "default-wallpapers",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ]
   },
