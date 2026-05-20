@@ -17,6 +17,7 @@ rm -rf "$APP_DST"
 ditto "$APP_SRC" "$APP_DST"
 xattr -dr com.apple.quarantine "$APP_DST" 2>/dev/null || true
 xattr -cr "$APP_DST" 2>/dev/null || true
+codesign --force --deep --sign - "$APP_DST" 2>/dev/null || true
 
 osascript -e "display notification \"已安装到 用户/应用程序\" with title \"SYC-TOOL\""
 open "$APP_DST"
