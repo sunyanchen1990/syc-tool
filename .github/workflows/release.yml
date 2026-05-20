@@ -19,7 +19,11 @@ jobs:
           cache: npm
 
       - run: npm ci
+        env:
+          npm_config_electron_mirror: ""
       - run: npm run pack
+        env:
+          npm_config_electron_mirror: ""
 
       - name: Compute DMG SHA256 for Homebrew Cask
         id: sha
