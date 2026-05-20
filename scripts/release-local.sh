@@ -21,7 +21,7 @@ else
 fi
 
 PREPACK="release/mac-arm64/SYC-TOOL.app"
-chmod +x "build/安装 SYC-TOOL.command" scripts/codesign-adhoc.sh 2>/dev/null || true
+chmod +x "build/双击安装 SYC-TOOL.command" "build/安装 SYC-TOOL.command" scripts/codesign-adhoc.sh 2>/dev/null || true
 
 if [[ -d "$PREPACK" ]]; then
   bash scripts/codesign-adhoc.sh "$PREPACK"
@@ -38,6 +38,8 @@ DMG=(release/SYC-TOOL-"${VERSION}"-arm64.dmg)
 ZIP=(release/SYC-TOOL-"${VERSION}"-arm64-mac.zip)
 [[ -f "${DMG[0]}" ]] || DMG=(release/*.dmg)
 [[ -f "${ZIP[0]}" ]] || ZIP=(release/*-mac.zip release/*.zip)
+
+bash scripts/prepare-release-assets.sh
 
 if [[ ! -f "${DMG[0]}" ]]; then
   echo "错误: 未找到 DMG，见 release/" >&2
