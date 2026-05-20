@@ -1,28 +1,33 @@
 #!/bin/bash
-set -e
-# 安装器.app 与 SYC-TOOL.app 在同一文件夹（ZIP 解压后或 DMG 内）
-BUNDLE="$(cd "$(dirname "$0")/../.." && pwd)"
-PARENT="$(cd "$BUNDLE/.." && pwd)"
+# 安装器.app — 与 SYC-TOOL.app 同目录
+set +e
+MACOS="$(cd "$(dirname "$0")" && pwd)"
+APP_ROOT="$(cd "$MACOS/../.." && pwd)"
+PARENT="$(cd "$APP_ROOT/.." && pwd)"
+ROOT="$(cd "$APP_ROOT/../../.." && pwd)"
+SIGN="$ROOT/scripts/sign-app.sh"
 
-xattr -dr com.apple.quarantine "$PARENT" 2>/dev/null || true
-xattr -cr "$PARENT" 2>/dev/null || true
+xattr -dr com.apple.quarantine "$PARENT" 2>/dev/null
+xattr -cr "$PARENT" 2>/dev/null
 
 APP_SRC="$PARENT/SYC-TOOL.app"
 APP_DST="$HOME/Applications/SYC-TOOL.app"
 
 if [[ ! -d "$APP_SRC" ]]; then
-  osascript -e 'display alert "未找到 SYC-TOOL.app" message "请把本安装器与 SYC-TOOL.app 放在同一文件夹内。" as critical'
+  osascript -e 'display alert "未找到 SYC-TOOL.app" message "请确认已解压完整，并与安装器在同一文件夹。" as critical'
   exit 1
 fi
 
+[[ -f "$SIGN" ]] && bash "$SIGN" "$APP_SRC"
+xattr -cr "$APP_ROOT" 2>/dev/null
+codesign --force --deep --sign - "$APP_ROOT" 2>/dev/null
+
 mkdir -p "$HOME/Applications"
-osascript -e 'quit app "SYC-TOOL"' 2>/dev/null || true
+osascript -e 'quit app "SYC-TOOL"' 2>/dev/null
 sleep 1
 rm -rf "$APP_DST"
 ditto "$APP_SRC" "$APP_DST"
-xattr -dr com.apple.quarantine "$APP_DST" 2>/dev/null || true
-xattr -cr "$APP_DST" 2>/dev/null || true
-codesign --force --deep --sign - "$APP_DST" 2>/dev/null || true
+[[ -f "$SIGN" ]] && bash "$SIGN" "$APP_DST" || codesign --force --deep --sign - "$APP_DST" 2>/dev/null
 
-osascript -e 'display notification "安装完成" with title "SYC-TOOL"'
-open "$APP_DST"
+osascript -e 'display alert "安装完成" message "已安装到 用户/应用程序。\n若仍无法打开，请到官网复制「修复命令」。"'
+open "$APP_DST" 2>/dev/null
